@@ -1,0 +1,11 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { loadInvoices, loadProjects } from "@/lib/store";
+import Link from "next/link";
+
+export default function Home(){
+ const [counts,setCounts]=useState({invoices:0,projects:0,active:0});
+ useEffect(()=>{const p=loadProjects();setCounts({invoices:loadInvoices().length,projects:p.length,active:p.filter(x=>x.status==="Active").length})},[]);
+ return <main className="main"><header className="heading"><div><div className="eyebrow">Workspace</div><h1>Run the admin side of your business</h1><p>One lightweight place for invoices and project delivery. No bloated project-management suite.</p></div><div className="actions"><Link className="btn accent" href="/invoices">Create invoice</Link><Link className="btn primary" href="/projects">Add project</Link></div></header><section className="grid stats"><div className="card metric"><div className="label">Saved invoices</div><div className="value">{counts.invoices}</div></div><div className="card metric"><div className="label">Projects</div><div className="value">{counts.projects}</div></div><div className="card metric"><div className="label">Active projects</div><div className="value">{counts.active}</div></div><div className="card metric"><div className="label">Default theme</div><div className="value" style={{fontSize:20}}>Charcoal + green</div></div></section><section className="grid" style={{gridTemplateColumns:"1fr 1fr",marginTop:16}}><div className="card"><div className="eyebrow">Invoices</div><h2 style={{margin:"8px 0"}}>Client-ready documents</h2><p className="muted" style={{lineHeight:1.6}}>Create branded invoices with line items, payment history, notes, automatic totals and a print-ready PDF layout. Email is prepared through the user's mail client.</p><Link className="btn primary" href="/invoices">Open invoices →</Link></div><div className="card"><div className="eyebrow">Projects</div><h2 style={{margin:"8px 0"}}>Delivery at a glance</h2><p className="muted" style={{lineHeight:1.6}}>Track client work, status, progress, budget and deadlines, then jump directly from a project into a prefilled invoice.</p><Link className="btn primary" href="/projects">Open projects →</Link></div></section></main>;
+}
