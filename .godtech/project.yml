@@ -1,0 +1,9 @@
+project:
+  state: active
+  priority: medium
+  current_focus: "Local-first invoice and project workflow"
+  next_step: "Continue validating the local-first release and its export/import safety"
+  blockers:
+    - []
+  status_note: "Lightweight invoice generator and project tracker."
+  last_worked_on: "2026-10-04"
